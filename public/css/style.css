@@ -15,9 +15,8 @@ body {
     background-color: white;
 }
 
-.fa-compass {
-    color: #fe424d;
-    font-size: 2rem;
+.fa-seedling {
+    font-size: 2.5rem;
 }
 
 .nav-link {
@@ -44,9 +43,11 @@ f-info-brand {
 }
 
 
-.f-info-socials i {
+.f-info-socials a i {
     font-size: 1.2rem;
     margin-right: 1rem;
+    color: #222222;
+    
 }
 
 .f-info {

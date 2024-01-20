@@ -11,10 +11,9 @@ const listingSchema = new Schema ({
     image: {
       url: String,
       filename: String,
-      },
+      },      
     price: Number,
     location: String,
-    country: String,
     reviews: [
       {
         type: Schema.Types.ObjectId,
