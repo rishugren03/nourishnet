@@ -48,9 +48,32 @@
           <a class="nav-link" href="/login"><b>Log in</b></a>
         <% } %>  
         <% if(currUser) { %>
-          <a class="nav-link" href="/logout"><b>Log out</b></a>
+          <a class="nav-link" onclick="logout()"><b>Log out</b></a>
         <% } %>    
         </div>
       </div>
     </div>
   </nav>
+
+  <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+<script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyB5iD9Xr-gA79BKSn0Im7iRra0NivTyVH0",
+  authDomain: "nourishnet-web.firebaseapp.com",
+  projectId: "nourishnet-web",
+  storageBucket: "nourishnet-web.appspot.com",
+  messagingSenderId: "731504395210",
+  appId: "1:731504395210:web:dd2278568f608459104533",
+  measurementId: "G-6B0SHP9ZZ3"
+};
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  function logout() {
+    auth.signOut();
+    window.location.href = "/logout";
+  }
+</script>

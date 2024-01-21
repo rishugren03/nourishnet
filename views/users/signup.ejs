@@ -37,7 +37,43 @@
                  required
                 />
             </div>
-            <button class="btn btn-success">SignUp</button>
+
+            <!-- signup with google -->
+            <div class="mb-3">
+                <button 
+                 type="button" 
+                 class="btn btn-primary"
+                 onclick="signupWithGoogle()"
+                >
+                 Sign up with Google
+                </button>
+            </div>
+
+            <button class="btn btn-success" id="signupbtn">SignUp</button>
         </form>
     </div>
 </div>
+
+
+
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+<script>
+  var needToCheck = false;
+    function signupWithGoogle() {
+        needToCheck = true;
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider);
+    }
+    auth.onAuthStateChanged((user) => {
+        if (user && needToCheck) {
+            console.log(user);
+            document.getElementById("username").value = user.email;
+            document.getElementById("email").value = user.email;
+            document.getElementById("password").value = user.uid;
+            signupbtn.click();
+        }
+    });
+    
+</script>

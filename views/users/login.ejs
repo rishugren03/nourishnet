@@ -1,31 +1,63 @@
 <% layout("/layouts/boilerplate") %>
 
 <div class="row mt-3">
-    <h1 class="col-6 offset-3 mb-2">Login to your account</h1>
-    <div class="col-6 offset-3">
-        <form action="/login" method="POST" class="needs-validation" novalidate>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input 
-                 type="text" 
-                 name="username" 
-                 id="username"
-                 class="form-control" 
-                 required
-                />
-            </div>
+  <h1 class="col-6 offset-3 mb-2">Login to your account</h1>
+  <div class="col-6 offset-3">
+    <form action="/login" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          class="form-control"
+          required
+        />
+      </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input 
-                 type="password" 
-                 name="password" 
-                 id="password"
-                 class="form-control" 
-                 required
-                />
-            </div>
-            <button class="btn btn-success">Login</button>
-        </form>
-    </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="form-control"
+          required
+        />
+      </div>
+      <!-- signin with google -->
+
+      <div class="mb-3">
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="loginWithGoogle()"
+        >
+          Sign in with Google
+        </button>
+      </div>
+      <button class="btn btn-success" id="loginBTN">Login</button>
+    </form>
+  </div>
 </div>
+<script>
+  var needToCheck = false;
+
+  function loginWithGoogle() {
+    needToCheck = true;
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+
+  }
+    auth.onAuthStateChanged((user) => {
+        if (user && needToCheck) {
+            // log user id
+            console.log(user.uid);
+            // set email to input
+            document.getElementById("username").value = user.email;
+            document.getElementById("password").value = user.uid;
+            // submit form
+            loginBTN.click();
+        }
+    });
+</script>
