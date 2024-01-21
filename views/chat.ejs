@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder"></script>
 </head>
 <body>
+<h2>Chat with Me!</h2>
 
 <div id="chat-container">
     <div id="chat-log"></div>
@@ -46,6 +47,24 @@
             return 'Fruits are nutritious and delicious foods that typically come from flowering plants. They are often consumed fresh and are a good source of essential vitamins.';
         } else if (userInput.includes('vegetables')) {
             return 'Vegetables are plant-based foods that are rich in vitamins, minerals, and fiber. They are an important part of a balanced diet and contribute to overall health.';
+        } else if (userInput.includes('broccoli')) {
+            return 'Broccoli is a green vegetable that is high in vitamins C and K, as well as fiber. It is known for its numerous health benefits.';
+        } else if (userInput.includes('carrots')) {
+            return 'Carrots are orange vegetables that are rich in beta-carotene, which is essential for eye health. They also provide vitamins A and K.';
+        } else if (userInput.includes('spinach')) {
+            return 'Spinach is a leafy green vegetable that is packed with nutrients, including iron, calcium, and vitamins A and K. It is known for promoting overall health.';
+        } else if (userInput.includes('apple')) {
+            return 'Apples are a type of fruit that is high in fiber and vitamin C. They are known for their sweet taste and contribute to a healthy diet.';
+        } else if (userInput.includes('banana')) {
+            return 'Bananas are a tropical fruit that is a good source of potassium. They are easy to peel and make a convenient and nutritious snack.';
+        } else if (userInput.includes('orange')) {
+            return 'Oranges are citrus fruits rich in vitamin C. They are known for their refreshing taste and contribute to immune system health.';
+        } else if (userInput.includes('zero hunger')) {
+            return 'The United Nations\' Zero Hunger goal aims to end hunger, achieve food security, improve nutrition, and promote sustainable agriculture globally.';
+        } else if (userInput.includes('rice')) {
+            return 'Rice is a staple food that provides a significant portion of the world\'s calories. It is a key agricultural product and a major food source.';
+        } else if (userInput.includes('corn')) {
+            return 'Corn is a cereal grain that is widely cultivated for its kernels. It serves as both a food source and an essential ingredient in various products.';
         } else {
             return 'I\'m sorry, I don\'t have information on that topic. Ask me about the United Nations Zero Hunger goal, Google Developers Solution Challenge, agriculture, agri-products, fruits, or vegetables.';
         }
