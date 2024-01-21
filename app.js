@@ -114,7 +114,7 @@ app.use((err, req, res, next) => {
     // res.status(statusCode).send(message);
 });
 
-app.listen(5500, ()=> {
+app.listen(8080, ()=> {
     console.log ("server is listening to port 8080");
 });
 
