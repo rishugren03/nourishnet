@@ -25,6 +25,7 @@ const password = process.env.MONGO_USR_PASSWORD;
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const chatRouter = require("./routes/chat.js");
 
 main().then (() => {
     console.log ("connected to DB");
@@ -47,6 +48,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
+
+
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
@@ -98,6 +101,7 @@ app.use((req, res, next) => {
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+app.use('/chat', chatRouter);
 
 app.all("*", (req, res, next) => {
     const err = new ExpressError(404, "Page not found!");

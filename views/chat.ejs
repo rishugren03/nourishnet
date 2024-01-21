@@ -1,0 +1,74 @@
+<% layout("/layouts/boilerplate") %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InfoBot</title>
+    <!-- Add TensorFlow.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <!-- Add TensorFlow.js NLP model -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder"></script>
+</head>
+<body>
+
+<div id="chat-container">
+    <div id="chat-log"></div>
+    <input style="height: 2.5rem; border:2px solid black; border-radius:14px" class="mt-2" type="text" id="user-input" placeholder="Type your message...">
+    <button class="btn btn-success" onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+    // Load the Universal Sentence Encoder model
+    async function loadModel() {
+        return await window.embed(tf.loadLayersModel('https://tfhub.dev/google/tfjs-model/universal-sentence-encoder/4/model.json'));
+    }
+
+    // Function to embed text using Universal Sentence Encoder
+    async function embed(text) {
+        const model = await loadModel();
+        const embeddings = model.predict(tf.tensor2d([text]));
+        return embeddings.arraySync()[0];
+    }
+
+    // Chatbot responses based on user input
+    function getResponse(userInput) {
+        if (userInput.includes('zero hunger') || userInput.includes('UN Sustainable Goal')) {
+            return 'The United Nations Zero Hunger Sustainable Development Goal aims to end hunger, achieve food security, improve nutrition, and promote sustainable agriculture.';
+        } else if (userInput.includes('Google Developers Solution Challenge') || userInput.includes('solution challenge program')) {
+            return 'The Google Developers Solution Challenge is an annual program where students from around the world use technology to solve real-world problems. It encourages innovative solutions and creative projects.';
+        } else if (userInput.includes('agriculture')) {
+            return 'Agriculture is the practice of farming, including the cultivation of soil and the rearing of animals. It plays a crucial role in providing food, raw materials, and livelihoods for many people.';
+        } else if (userInput.includes('agri-products') || userInput.includes('agricultural products')) {
+            return 'Agricultural products include crops, livestock, and other goods produced through farming. These can range from grains and vegetables to meat and dairy.';
+        } else if (userInput.includes('fruits')) {
+            return 'Fruits are nutritious and delicious foods that typically come from flowering plants. They are often consumed fresh and are a good source of essential vitamins.';
+        } else if (userInput.includes('vegetables')) {
+            return 'Vegetables are plant-based foods that are rich in vitamins, minerals, and fiber. They are an important part of a balanced diet and contribute to overall health.';
+        } else {
+            return 'I\'m sorry, I don\'t have information on that topic. Ask me about the United Nations Zero Hunger goal, Google Developers Solution Challenge, agriculture, agri-products, fruits, or vegetables.';
+        }
+    }
+
+    // Function to handle user messages and display responses
+    async function sendMessage() {
+        const userInput = document.getElementById('user-input').value;
+        const chatLog = document.getElementById('chat-log');
+
+        // Display user message
+        chatLog.innerHTML += `<div>User: ${userInput}</div>`;
+
+        // Get response based on user input
+        const response = getResponse(userInput);
+
+        // Display chatbot response
+        chatLog.innerHTML += `<div>Chatbot: ${response}</div>`;
+
+        // Clear user input
+        document.getElementById('user-input').value = '';
+    }
+</script>
+
+</body>
+</html>
