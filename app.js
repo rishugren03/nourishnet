@@ -101,7 +101,7 @@ app.use((req, res, next) => {
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
-app.use('/chat', chatRouter);
+app.use('/', chatRouter);
 
 app.all("*", (req, res, next) => {
     const err = new ExpressError(404, "Page not found!");

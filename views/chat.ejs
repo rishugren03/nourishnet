@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder"></script>
 </head>
 <body>
-<h2>Chat with Me!</h2>
+<h2>Chat Me!</h2>
 
 <div id="chat-container">
     <div id="chat-log"></div>
@@ -35,7 +35,13 @@
 
     // Chatbot responses based on user input
     function getResponse(userInput) {
-        if (userInput.includes('zero hunger') || userInput.includes('UN Sustainable Goal')) {
+        if (userInput.includes('hii' || 'hello') || userInput.includes('good morning' || 'greetings' || 'Good morning' || 'Good evening' || 'Good Afternoon')) {
+            return `${userInput}, How may I help you?`;
+        } else if(userInput.includes('Love You' || 'I Love You') || (userInput.includes('love you' || 'i love you' || 'I love you' || 'love'))){
+            return `Aww, thanks!, I appreciate the kind words.`;
+        } else if(userInput.includes('bye' || 'Bye')) {
+            return 'Bye, Hoping to see you soon.'
+        } else if (userInput.includes('zero hunger') || userInput.includes('UN Sustainable Goal')) {
             return 'The United Nations Zero Hunger Sustainable Development Goal aims to end hunger, achieve food security, improve nutrition, and promote sustainable agriculture.';
         } else if (userInput.includes('Google Developers Solution Challenge') || userInput.includes('solution challenge program')) {
             return 'The Google Developers Solution Challenge is an annual program where students from around the world use technology to solve real-world problems. It encourages innovative solutions and creative projects.';
