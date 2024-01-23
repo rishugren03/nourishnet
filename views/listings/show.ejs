@@ -12,7 +12,7 @@
           <p class="card-text"> <%= listing.description %> </p>
           <p class="card-text"> &#8377 <%= listing.price.toLocaleString("en-IN") %> </p>
           <p class="card-text"><%= listing.location %> </p>
-          <p class="card-text"><%= listing.country %> </p>
+          <!-- <p class="card-text"><%= listing.country %> </p> -->
           <% if(!(currUser && currUser._id.equals(listing.owner._id))) { %>
             <div class="btns" style="display: flex;">
                 <button class="btn btn-success">Buy Now</button>
