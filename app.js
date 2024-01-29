@@ -19,6 +19,7 @@ const User = require("./models/user.js");
 const BuyNow = require("./models/buynow.js");
 
 
+
 const dbUrl = process.env.ATLASDB_URL;
 const username = process.env.MONGO_USER;
 const password = process.env.MONGO_USR_PASSWORD;
@@ -28,6 +29,7 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const chatRouter = require("./routes/chat.js");
 const buyNowRouter = require("./routes/buynow.js");
+const nourishHubRouter = require("./routes/nourishhub.js");
 
 main().then (() => {
     console.log ("connected to DB");
@@ -83,6 +85,7 @@ const sessionOptions = {
 // });
 
 
+
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -105,6 +108,10 @@ app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 app.use('/', chatRouter);
 app.use("/listings", buyNowRouter);
+app.use("/", nourishHubRouter);
+
+
+
 
 app.all("*", (_req, _res, next) => {
     const err = new ExpressError(404, "Page not found!");
