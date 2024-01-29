@@ -1,0 +1,85 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row offset-2">
+    <div class="col-8">
+        <br>
+        <h3>Purchase Details</h3>
+        &nbsp;
+    <form method="POST" action="/listings/buynow" novalidate class="needs-validation" >
+       
+        <div class="mb-3">
+            <label for="title" class="form-label">What are you buying today?</label>
+            <input 
+             type="text" 
+             name="buynow[product]" 
+             placeholder="enter the product name" 
+             class="form-control" 
+             required
+            />
+        </div>    
+        <div class="mb-3">
+            <label for="title" class="form-label">Buyer Name</label>
+            <input 
+             type="text" 
+             name="buynow[buyerName]" 
+             placeholder="enter name" 
+             class="form-control" 
+             required
+            />
+            <div class="valid-feedback">correct</div>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Email</label>
+            <input
+             name="buynow[buyerEmail]"
+             class="form-control"
+             placeholder="enter email" 
+             required
+            />
+            <div class="invalid-feedback">enter a valid email</div>
+        </div>
+        
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <label for="price" class="form-label">Quantity</label>
+                <input
+                 name="buynow[quantity]" 
+                 placeholder="5"
+                 class="form-control"
+                 required
+                />
+                <div class="invalid-feedback">enter quantity</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <label for="price" class="form-label">Total Price</label>
+                <input
+                 name="buynow[totalPrice]" 
+                 placeholder="500"
+                 class="form-control"
+                 required
+                />
+                <div class="invalid-feedback">enter total price</div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="location" class="form-label">Shipping Address</label>
+            <textarea
+             type="text" 
+             name="buynow[shippingAddress]"
+             class="form-control"
+             required
+            ></textarea>
+            <div class="invalid-feedback">Please enter full address</div>
+        </div>
+    
+        <button class="btn btn-dark add-btn">Confirm Purchase</button>
+        <br><br>
+    </form>
+</div>
+</div>
+
+
+

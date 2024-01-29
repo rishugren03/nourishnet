@@ -15,9 +15,9 @@
           <!-- <p class="card-text"><%= listing.country %> </p> -->
           <% if(!(currUser && currUser._id.equals(listing.owner._id))) { %>
             <div class="btns" style="display: flex;">
-                <button class="btn btn-success">Buy Now</button>
+               <a href="/listings/<%= listing._id %>/buynow"> <button class="btn btn-success">Buy Now</button></a>
                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                 <button class="btn btn-success">Add to Cart</button>
+                <a href="/listings/<%= listing._id %>/addtocart"> <button class="btn btn-success">Add to Cart</button></a>
             </div>
             <% } %>
         </div>

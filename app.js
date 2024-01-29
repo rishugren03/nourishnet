@@ -16,6 +16,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const BuyNow = require("./models/buynow.js");
 
 
 const dbUrl = process.env.ATLASDB_URL;
@@ -26,6 +27,7 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const chatRouter = require("./routes/chat.js");
+const buyNowRouter = require("./routes/buynow.js");
 
 main().then (() => {
     console.log ("connected to DB");
@@ -102,8 +104,9 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 app.use('/', chatRouter);
+app.use("/listings", buyNowRouter);
 
-app.all("*", (req, res, next) => {
+app.all("*", (_req, _res, next) => {
     const err = new ExpressError(404, "Page not found!");
     next(err);
 });

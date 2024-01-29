@@ -23,6 +23,7 @@ body {
     color: #222222 !important;
 }
 
+
 /* footer */
 .f-info-links a {
     text-decoration: none;
@@ -44,16 +45,12 @@ f-info-brand {
 
 
 .f-info-socials a i {
-<<<<<<< HEAD
     font-size: 1.2rem;
     margin-right: 1rem;
     color: #222222;
-    
-=======
      font-size: 1.2rem;
     margin-right: 1rem;
     color: #222222;
->>>>>>> c2100337e5ff889e6c8aa47ed704893a7a8ab705
 }
 
 .f-info {
