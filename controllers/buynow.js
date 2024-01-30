@@ -1,7 +1,15 @@
-const Order = require('../models/buynow.js'); // Import your Order model or replace it with the correct model import
+const Order = require('../models/buynow.js'); 
+const Listing = require("../models/listing");
 
-module.exports.renderBuyNowForm = (req, res) => {
-    res.render("listings/buynow.ejs");
+module.exports.renderBuyNowForm = async (req, res) => {
+    let {id} = req.params;
+    const listing = await Listing.findById(id).populate("owner");
+    res.render("listings/buynow.ejs", {listing});
+    const order = await Order.findById(id);
+    const newOrder = new Order(req.body.order);
+    await newOrder.save();
+    res.redirect("listings/:id/buynow")
+    req.flash("success", "Order Confirmed!");
 };
 
 module.exports.processBuyNowForm = async (req, res) => {
