@@ -5,11 +5,6 @@ module.exports.renderBuyNowForm = async (req, res) => {
     let {id} = req.params;
     const listing = await Listing.findById(id).populate("owner");
     res.render("listings/buynow.ejs", {listing});
-    const order = await Order.findById(id);
-    const newOrder = new Order(req.body.order);
-    await newOrder.save();
-    res.redirect("listings/:id/buynow")
-    req.flash("success", "Order Confirmed!");
 };
 
 module.exports.processBuyNowForm = async (req, res) => {
