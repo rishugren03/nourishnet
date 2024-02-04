@@ -29,6 +29,7 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const chatRouter = require("./routes/chat.js");
 const buyNowRouter = require("./routes/buynow.js");
+const cartRouter = require("./routes/addtocart.js");
 const nourishHubRouter = require("./routes/nourishhub.js");
 
 main().then (() => {
@@ -108,6 +109,7 @@ app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 app.use('/', chatRouter);
 app.use("/listings", buyNowRouter);
+app.use("/listings", cartRouter);
 app.use("/", nourishHubRouter);
 
 

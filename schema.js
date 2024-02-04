@@ -17,3 +17,15 @@ module.exports.reviewSchema = Joi.object({
         comment: Joi.string().required(),
     }).required()
 });
+
+module.exports.buyNowSchema = Joi.object({
+    buyNow: Joi.object({
+        product: Joi.string(),
+        buyerName: Joi.string().required(),
+        buyerEmail: Joi.string().required(),
+        quantity: Joi.number().required(),
+        totalPrice: Joi.number().required(),
+        shippingAddress: Joi.string().required(),
+        orderDate: Joi.date(),
+    }).required()
+});

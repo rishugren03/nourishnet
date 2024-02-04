@@ -1,7 +1,7 @@
 const Listing = require("./models/listing");
 const Review = require("./models/review.js");
 const ExpressError = require("./utils/ExpressError.js");
-const { listingSchema, reviewSchema} = require("./schema.js");
+const { listingSchema, reviewSchema, buyNowSchema} = require("./schema.js");
 
 module.exports.isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()) {
@@ -63,3 +63,15 @@ module.exports.isReviewAuthor = async (req, res, next) => {
 
     next();
 }
+
+
+
+    module.exports.validateOrder = async (req, _res, next) => {
+        try {
+            await Order.validate(req.body);  // Use the validate method on the Mongoose model
+            next();
+        } catch (error) {
+            let errMsg = error.errors.map((el) => el.message).join(",");
+            throw new ExpressError(400, errMsg);
+        }
+    };

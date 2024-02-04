@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const path = require("path");
 
 const buyNowSchema = new mongoose.Schema({
   product: {
@@ -24,10 +25,8 @@ const buyNowSchema = new mongoose.Schema({
     required: true
   },
   shippingAddress: {
-    street: String,
-    city: String,
-    state: String,
-    zipCode: String
+   type: String,
+   require: true,
   },
   // paymentDetails: {
   //   cardNumber: String,
@@ -36,10 +35,10 @@ const buyNowSchema = new mongoose.Schema({
   // },
   orderDate: {
     type: Date,
-    default: Date.now
+    required: true,
   }
 });
 
-const BuyNow = mongoose.model('BuyNow', buyNowSchema);
+const Order = mongoose.model('Order', buyNowSchema);
 
-module.exports = BuyNow;
+module.exports = Order;

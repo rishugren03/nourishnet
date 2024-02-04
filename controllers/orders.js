@@ -1,8 +1,11 @@
 const Order = require('../models/buynow.js'); 
 const Listing = require("../models/listing");
 
-module.exports.renderBuyNowForm = async (req, res) => {
-    let {id} = req.params;
-    const listing = await Listing.findById(id).populate("owner");
-    res.render("listings/orders.ejs", {listing});
+
+module.exports.processBuyNowForm = async (req, res) => {
+    const newOrder = new Order(req.body.order);
+    await newOrder.save();
+    req.flash("success", "Order Confirmed!");
+    res.redirect("/listings");
 };
+

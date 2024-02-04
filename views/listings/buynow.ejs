@@ -17,9 +17,12 @@
 
     <hr>
         
-    <h5>Enter your details</h5>
-        
-    <form method="POST" action="/listings/<%= currUser._id %>/buynow" novalidate class="needs-validation" >
+    <form method="POST" action="/listings/<%= currUser.id %>/orders" class="needs-validation">
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Product</label>
+            <h6> &nbsp;&nbsp;&nbsp;<%= listing.title %></h6>
+        </div>
           
         <div class="mb-3">
             <label for="title" class="form-label">Buyer Name</label>
@@ -35,6 +38,7 @@
         <div class="mb-3">
             <label for="description" class="form-label">Email</label>
             <input
+            type="email"
              name="buynow[buyerEmail]"
              class="form-control"
              placeholder="enter email" 
@@ -47,6 +51,7 @@
             <div class="mb-3 col-md-4">
                 <label for="price" class="form-label">Quantity</label>
                 <input
+                type="number"
                  name="buynow[quantity]" 
                  placeholder="5"
                  class="form-control"
@@ -60,6 +65,7 @@
             <div class="mb-3 col-md-4">
                 <label for="price" class="form-label">Total Price</label>
                 <input
+                type="number"
                  name="buynow[totalPrice]" 
                  placeholder="Rs 500"
                  class="form-control"
@@ -72,15 +78,30 @@
         <div class="mb-3">
             <label for="location" class="form-label">Shipping Address</label>
             <textarea
-             type="text" 
+             type="address" 
              name="buynow[shippingAddress]"
+             placeholder="street city state zipcode"
              class="form-control"
              required
             ></textarea>
             <div class="invalid-feedback">Please enter full address</div>
         </div>
-    
-        <button class="btn btn-dark add-btn">Confirm Purchase</button>
+
+        <div class="mb-3 col-md-4">
+            <label for="orderdate" class="form-label">Order Date</label>
+            <input
+            type="date"
+            name="buynow[orderDate]" 
+            placeholder="10/02/2024"
+            class="form-control"
+            required
+           />
+           <div class="invalid-feedback">please enter a date</div>
+       </div>
+
+       <button class="btn btn-dark add-btn">Confirm Order</button>
+            
+        </div>
         <br><br>
     </form>
 </div>
