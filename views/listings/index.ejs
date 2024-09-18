@@ -1,35 +1,82 @@
 <% layout("/layouts/boilerplate") %>
 
-
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
-      <% for(let listing of allListings) { %>
-        <a href="/listings/<%= listing._id %>" class="listing-link">
-          <div class="card col listing-card">
-            <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem;" />
-            <div class="card-img-overlay"></div>
-            <div class="card-body">
-              <p class="card-text">
-                <b><%= listing.title %></b>
-                <br>
-                &#8377 <%= listing.price.toLocaleString("en-IN") %> / Unit
-              </p>
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+  <% for(let listing of allListings) { %>
+    <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none">
+      <div class="card col listing-card mb-4 position-relative overflow-hidden border-0">
+       
+        <div class="card-img-top position-relative" style="height: 20rem;">
+          <img src="<%= listing.image.url %>" alt="listing_image" class="w-100 h-100 object-fit-cover" />
+          <div class="overlay d-flex justify-content-center align-items-center">
+            <div class="text-white">
+              <h5 class="mb-2">Special Offer</h5>
+              <p class="mb-0">&#8377 <%= listing.price.toLocaleString("en-IN") %> / Unit</p>
             </div>
           </div>
-        </a>
-      <% } %>
-    </div>
+        </div>
+        <div class="card-body p-4">
+          <h5 class="card-title mb-2"><%= listing.title %></h5>
+          <p class="card-text text-muted mb-0">&#8377 <%= listing.price.toLocaleString("en-IN") %> / Unit</p>
+        </div>
+      </div>
+    </a>
+  <% } %>
+</div>
 
-    <script>
-      let taxSwitch = document.getElementById("flexSwitchCheckDefault");
-      taxSwitch.addEventListener("click", () => {
-        let taxInfo = document.getElementsByClassName("tax-info");
-        for(info of taxInfo) {
-          if(info.style.display != "inline") {
-            info.style.display = "inline";
-          } else {
-            info.style.display = "none";
-          }
-        
-        }
-      })
-    </script>
+<script>
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for (let info of taxInfo) {
+      if (info.style.display !== "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
+    }
+  });
+</script>
+
+<style>
+  .listing-card {
+    transition: all 0.3s ease-in-out;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  .listing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    display: none;
+    transition: opacity 0.3s ease-in-out;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+  }
+
+  .listing-card:hover .overlay {
+    display: flex;
+  }
+
+  .card-header {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .object-fit-cover {
+    object-fit: cover;
+  }
+
+  .card-title {
+    font-weight: 600;
+  }
+</style>

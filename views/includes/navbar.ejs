@@ -3,7 +3,8 @@
     background-color: #fe424d;
     color: #ffff;
     border-radius: 25px;
-    padding: 0 1rem 0 1rem;
+    padding: 0 1rem;
+    border: none;
   }
 
   .btn-search:hover {
@@ -13,69 +14,84 @@
 
   .search-input {
     border-radius: 25px;
-    padding: 0.5rem 3rem 0.5rem 3rem;
+    padding: 0.5rem 1rem;
     font-size: 1rem;
-    width:50vw ;
-    border-width: 1.5px;
+    width: 300px; /* Adjust the width as needed */
   }
 </style>
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-    <div class="container-fluid">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-solid fa-seedling"></i>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav d-flex align-items-center">
+        <a class="nav-link" href="/listings">
+          <h4><b>NourishNet</b></h4>
+        </a>
+        <form class="d-flex ms-3" role="search">
+          <input
+            class="form-control search-input"
+            type="search"
+            placeholder="Search NourishNet"
+          />
+        </form>
+      </div>
 
-      <a class="navbar-brand" href="/listings"><i class="fa-solid fa-seedling"></i></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link" href="/listings">
-            <h4>
-              <b>NourishNet</b>
-            </h4>
-          </a>
-        </div>
-
-        <div class="navbar-nav ms-auto">
-          <form class="d-flex" role="search">
-            <input
-             class="form-control me-2 search-input"
-             type="search"
-             placeholder="Search NourishNet"
-             />
-            <button class="btn btn-search" type="submit">Search</button>
-          </form>
-        </div>
-
-        <div class="navbar-nav ms-auto">
-          <button class="btn show-btns" style="background-color: #fe424d;"><a style="color:white; text-decoration:none" href="/nourishhub">NourishHub</a></button>
-          &nbsp;&nbsp;&nbsp;
-          <button class="btn show-btns" style="background-color: #fe424d;"><a style="color:white; text-decoration:none" href="/chat">Chat Me</a></button>
-          <% if(!currUser) { %>
-          <a class="nav-link" href="/signup"><b>SignUp</b></a>
-          <a class="nav-link" href="/login"><b>Log in</b></a>
-        <% } %>  
-        <% if(currUser) { %>
-          <a class="nav-link" onclick="logout()"><b>Log out</b></a>
-        <% } %>    
-        </div>
+      <div class="navbar-nav ms-auto">
+        &nbsp;&nbsp;&nbsp;
+        <button class="btn btn-search" style="margin-right: 2.5rem">
+          <a
+            style="color: white; text-decoration: none; font-weight: 800"
+            href="/user/dashboard"
+            >Dashboard</a
+          >
+        </button>
+        <button class="btn btn-search" style="margin-right: 2.5rem">
+          <a
+            style="color: white; text-decoration: none; font-weight: 800"
+            href="/listings/new"
+            >Add Product</a
+          >
+        </button>
+        <% if (!currUser) { %>
+        <a class="nav-link" href="/signup"><b>SignUp</b></a>
+        <a class="nav-link" href="/login"><b>Log in</b></a>
+        <% } %> <% if (currUser) { %>
+        <a class="nav-link" onclick="logout()" style="cursor: pointer"
+          ><b>Log out</b></a
+        >
+        <% } %>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
 <script>
   const firebaseConfig = {
-  apiKey: "AIzaSyB5iD9Xr-gA79BKSn0Im7iRra0NivTyVH0",
-  authDomain: "nourishnet-web.firebaseapp.com",
-  projectId: "nourishnet-web",
-  storageBucket: "nourishnet-web.appspot.com",
-  messagingSenderId: "731504395210",
-  appId: "1:731504395210:web:dd2278568f608459104533",
-  measurementId: "G-6B0SHP9ZZ3"
-};
+    apiKey: "AIzaSyB5iD9Xr-gA79BKSn0Im7iRra0NivTyVH0",
+    authDomain: "nourishnet-web.firebaseapp.com",
+    projectId: "nourishnet-web",
+    storageBucket: "nourishnet-web.appspot.com",
+    messagingSenderId: "731504395210",
+    appId: "1:731504395210:web:dd2278568f608459104533",
+    measurementId: "G-6B0SHP9ZZ3",
+  };
 
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);

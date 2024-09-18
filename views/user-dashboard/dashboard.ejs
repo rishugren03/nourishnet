@@ -1,0 +1,196 @@
+<% layout("/layouts/boilerplate") %>
+
+<!-- Sidebar -->
+<div
+  class="sidebar d-flex flex-column flex-shrink-0 p-3 bg-light border-end"
+  style="
+    width: 280px;
+    height: 60vh;
+    position: fixed;
+    top: 100px;
+    left: 0;
+    z-index: 100;
+  "
+>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li>
+      <a
+        id="dashboard-link"
+        href="#"
+        class="nav-link active link-dark"
+        data-page="dashboard"
+      >
+        <svg class="bi me-2" width="16" height="16">
+          <use xlink:href="#speedometer2"></use>
+        </svg>
+        Dashboard
+      </a>
+    </li>
+    <li>
+      <a
+        id="orders-link"
+        href="/user/orders"
+        class="nav-link link-dark"
+        data-page="orders"
+      >
+        <svg class="bi me-2" width="16" height="16">
+          <use xlink:href="#box"></use>
+        </svg>
+        Orders
+      </a>
+    </li>
+
+    <li>
+      <a
+        id="orders-link"
+        href="#"
+        class="nav-link link-dark"
+        data-page="orders"
+      >
+        <svg class="bi me-2" width="16" height="16">
+          <use xlink:href="#box"></use>
+        </svg>
+        Listings
+      </a>
+    </li>
+    <li>
+      <a
+        id="orders-link"
+        href="#"
+        class="nav-link link-dark"
+        data-page="orders"
+      >
+        <svg class="bi me-2" width="16" height="16">
+          <use xlink:href="#box"></use>
+        </svg>
+        Customers
+      </a>
+    </li>
+    <li>
+      <a
+        id="orders-link"
+        href="#"
+        class="nav-link link-dark"
+        data-page="orders"
+      >
+        <svg class="bi me-2" width="16" height="16">
+          <use xlink:href="#box"></use>
+        </svg>
+        Analytics
+      </a>
+    </li>
+    <li>
+      <a
+        id="orders-link"
+        href="#"
+        class="nav-link link-dark"
+        data-page="orders"
+      >
+        <svg class="bi me-2" width="16" height="16">
+          <use xlink:href="#box"></use>
+        </svg>
+        Transactions
+      </a>
+    </li>
+
+    <li>
+      <a
+        id="orders-link"
+        href="#"
+        class="nav-link link-dark"
+        data-page="orders"
+      >
+        <svg class="bi me-2" width="16" height="16">
+          <use xlink:href="#box"></use>
+        </svg>
+        Messages
+      </a>
+    </li>
+
+    <li>
+      <a
+        id="orders-link"
+        href="#"
+        class="nav-link link-dark"
+        data-page="orders"
+      >
+        <svg class="bi me-2" width="16" height="16">
+          <use xlink:href="#box"></use>
+        </svg>
+        Notifications
+      </a>
+    </li>
+
+    <li>
+      <a
+        id="orders-link"
+        href="#"
+        class="nav-link link-dark"
+        data-page="orders"
+      >
+        <svg class="bi me-2" width="16" height="16">
+          <use xlink:href="#box"></use>
+        </svg>
+        Language
+      </a>
+    </li>
+
+    <li>
+      <a
+        id="orders-link"
+        href="#"
+        class="nav-link link-dark"
+        data-page="orders"
+      >
+        <svg class="bi me-2" width="16" height="16">
+          <use xlink:href="#box"></use>
+        </svg>
+        Logout
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- Main Content Area -->
+<div
+  class="main-content"
+  id="mainContent"
+  style="margin-left: 280px; padding: 15px; position: relative; top: 100px"
+>
+  <!-- Dynamic content will be loaded here -->
+</div>
+
+<style>
+  .nav-link.active {
+    background-color: #fe424d !important;
+    color: white !important;
+  }
+</style>
+
+<script>
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    link.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      document
+        .querySelectorAll(".nav-link")
+        .forEach((el) => el.classList.remove("active"));
+
+      this.classList.add("active");
+
+      const page = this.getAttribute("data-page");
+      loadPageContent(page);
+    });
+  });
+
+  function loadPageContent(page) {
+    fetch(`/${page}`)
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("mainContent").innerHTML = data;
+      })
+      .catch((error) => {
+        console.error("Error loading content:", error);
+      });
+  }
+</script>

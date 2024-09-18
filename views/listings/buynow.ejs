@@ -1,111 +1,159 @@
 <% layout("/layouts/boilerplate") %>
-<div class="row offset-2">
-    <div class="col-8">
-        <br>
-        <h3>Purchase Details</h3>
-        <br>
-        <h4><%= listing.title %></h4>
 
-        <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image" >
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12 col-md-10 col-lg-8 mx-auto">
+      <div class="card p-4">
+        <h3 class="mb-4">Purchase Details</h3>
+        <h4 class="mb-3"><%= listing.title %></h4>
+
+        <img
+          src="<%= listing.image.url %>"
+          class="img-fluid mb-3 rounded"
+          alt="listing_image"
+        />
+
         <div class="card-body">
-          <p class="card-text">seller: <i><%= listing.owner.username %></i> </p><p class="card-text"><%= listing.location %> </p>
-          <p class="card-text"> &#8377 <%= listing.price.toLocaleString("en-IN") %></p>
-          
+          <p class="card-text">Seller: <i><%= listing.owner.username %></i></p>
+          <p class="card-text"><%= listing.location %></p>
+          <p class="card-text">
+            &#8377; <%= listing.price.toLocaleString("en-IN") %>
+          </p>
         </div>
-        <br>
-    </div>  
 
-    <hr>
-        
-    <form method="POST" action="/listings/<%= currUser.id %>/orders" class="needs-validation">
+        <hr />
 
-        <div class="mb-3">
-            <label for="title" class="form-label">Product</label>
-            <h6> &nbsp;&nbsp;&nbsp;<%= listing.title %></h6>
-        </div>
-          
-        <div class="mb-3">
-            <label for="title" class="form-label">Buyer Name</label>
-            <input 
-             type="text" 
-             name="buynow[buyerName]" 
-             placeholder="enter name" 
-             class="form-control" 
-             required
-            />
-            <div class="valid-feedback">correct</div>
-        </div>
-        <div class="mb-3">
-            <label for="description" class="form-label">Email</label>
+        <form
+          method="POST"
+          action="/listings/<%= listing._id %>/confirm-order"
+          class="needs-validation"
+        >
+          <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <div class="input-group">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                onclick="changeQuantity(-1)"
+              >
+                -
+              </button>
+              <input
+                type="number"
+                name="buynow[quantity]"
+                id="quantity"
+                class="form-control text-center"
+                value="1"
+                min="1"
+                required
+                oninput="calculateTotalPrice()"
+                readonly
+              />
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                onclick="changeQuantity(1)"
+              >
+                +
+              </button>
+            </div>
+            <div class="invalid-feedback">Enter quantity</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="totalPrice" class="form-label">Total Price</label>
             <input
-            type="email"
-             name="buynow[buyerEmail]"
-             class="form-control"
-             placeholder="enter email" 
-             required
+              type="text"
+              id="totalPrice"
+              name="buynow[totalPrice]"
+              class="form-control"
+              readonly
+              required
             />
-            <div class="invalid-feedback">enter a valid email</div>
-        </div>
-        
-        <div class="row">
-            <div class="mb-3 col-md-4">
-                <label for="price" class="form-label">Quantity</label>
-                <input
-                type="number"
-                 name="buynow[quantity]" 
-                 placeholder="5"
-                 class="form-control"
-                 required
-                />
-                <div class="invalid-feedback">enter quantity</div>
-            </div>
-        </div>
+          </div>
 
-        <div class="row">
-            <div class="mb-3 col-md-4">
-                <label for="price" class="form-label">Total Price</label>
-                <input
-                type="number"
-                 name="buynow[totalPrice]" 
-                 placeholder="Rs 500"
-                 class="form-control"
-                 required
-                />
-                <div class="invalid-feedback">enter total price</div>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="location" class="form-label">Shipping Address</label>
+          <div class="mb-3">
+            <label for="shippingAddress" class="form-label"
+              >Shipping Address</label
+            >
             <textarea
-             type="address" 
-             name="buynow[shippingAddress]"
-             placeholder="street city state zipcode"
-             class="form-control"
-             required
+              name="buynow[shippingAddress]"
+              placeholder="Street, City, State, Zipcode"
+              class="form-control"
+              rows="3"
+              required
             ></textarea>
             <div class="invalid-feedback">Please enter full address</div>
-        </div>
+          </div>
 
-        <div class="mb-3 col-md-4">
-            <label for="orderdate" class="form-label">Order Date</label>
-            <input
-            type="date"
-            name="buynow[orderDate]" 
-            placeholder="10/02/2024"
-            class="form-control"
-            required
-           />
-           <div class="invalid-feedback">please enter a date</div>
-       </div>
-
-       <button class="btn btn-dark add-btn">Confirm Order</button>
-            
-        </div>
-        <br><br>
-    </form>
-</div>
+          <button class="btn btn-dark w-100 mb-15">Confirm Order</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
+<script>
 
+  const listingPrice = <%= listing.price %>;
 
+  function calculateTotalPrice() {
+      const quantity = document.getElementById('quantity').value;
+      const totalPrice = listingPrice * quantity;
+      document.getElementById('totalPrice').value = `Rs ${totalPrice.toLocaleString('en-IN')}`;
+  }
+
+  function changeQuantity(delta) {
+      const quantityInput = document.getElementById('quantity');
+      let quantity = parseInt(quantityInput.value);
+      quantity = isNaN(quantity) ? 1 : quantity + delta;
+      quantity = Math.max(1, quantity);
+      quantityInput.value = quantity;
+      calculateTotalPrice();
+  }
+
+  calculateTotalPrice();
+</script>
+
+<style>
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .card-body p {
+    margin-bottom: 1rem;
+  }
+
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .input-group .form-control {
+    max-width: 80px;
+  }
+
+  .input-group .btn {
+    font-size: 20px;
+  }
+
+  @media (max-width: 576px) {
+    .form-control {
+      font-size: 14px;
+    }
+
+    .btn {
+      font-size: 16px;
+      padding: 0.75rem 1.25rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+</style>
